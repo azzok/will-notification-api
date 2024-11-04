@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Death search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .content {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        small {
+            display: block;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 5px 0;
+            /* width: 300px; */
+            text-align: left;
+            font-size: 14px;
+        }
+        p {
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Death search (matchid.io)</h1>
+<form id="searchForm" class="content">
+    <input name="search" type="text" id="searchInput" placeholder="Enter name">
+</form>
+<div id="results"></div>
+
+<script>
+$(document).ready(function() {
+    $('#searchInput').on('input', function() {
+        const input = $(this).val();
+        if (input) {
+            $.ajax({
+                url: 'search.php',
+                type: 'GET',
+                data: { query: input },
+                success: function(data) {
+                    $('#results').html(data);
+                },
+                error: function() {
+                    $('#results').html('<p>Error fetching data</p>');
+                }
+            });
+        } else {
+            $('#results').empty();
+        }
+    });
+});
+</script>
+
+</body>
+</html>
