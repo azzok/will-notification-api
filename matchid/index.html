@@ -41,6 +41,55 @@
             color: #555;
             font-size: 14px;
         }
+
+
+.faqanswer {
+	display: none;
+	width: 602px;
+	background: #e5e5e5;
+	padding: 12px 20px 0 30px;	
+}
+
+.faqanswer p {
+	font-size: 13px;
+	line-height: 17px;	
+}
+
+
+a.active {
+	font-weight: bold;
+}
+
+.togglefaq {
+	text-decoration: none;
+	color: #333;
+	font-size: 13px;
+	padding: 10px 30px;
+	line-height: 20px;
+	display: block;
+	border: 1px solid #d0d0d0;
+	width: 590px;
+	margin-bottom: -1px;
+    background: white;
+}
+.icon-plus {
+	color: #5ec4cd;
+	margin-right: 20px;
+	font-size: 20px;
+	float:left;
+}
+
+.icon-minus {
+	color: #5ec4cd;
+	margin-right: 20px;
+	font-size: 20px;
+	float:left;
+}
+p {
+  margin: 0;
+  padding-bottom: 20px;
+}
+
     </style>
 </head>
 <body>
@@ -53,7 +102,12 @@
 
 <script>
 $(document).ready(function() {
-    $('#searchInput').on('input', function() {
+
+
+
+
+
+    $('#searchInput').on('input', function() {  
         const input = $(this).val();
         if (input) {
             $.ajax({
@@ -62,6 +116,15 @@ $(document).ready(function() {
                 data: { query: input },
                 success: function(data) {
                     $('#results').html(data);
+                        //faq toggle stuff 
+    $('.togglefaq').click(function(e) {
+    e.preventDefault();
+    var notthis = $('.active').not(this);
+    notthis.find('.icon-minus').addClass('icon-plus').removeClass('icon-minus');
+    notthis.toggleClass('active').next('.faqanswer').slideToggle(300);
+    $(this).toggleClass('active').next().slideToggle("fast");
+    $(this).children('i').toggleClass('icon-plus icon-minus');
+    });
                 },
                 error: function() {
                     $('#results').html('<p>Error fetching data</p>');
