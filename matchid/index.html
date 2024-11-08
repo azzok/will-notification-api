@@ -141,7 +141,18 @@
 
 <script>
 $(document).ready(function() {
+
+    $('input').keydown(function(event) {
+        if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the default form submission on Enter
+        $('#searchButton').click(); // Trigger the submit button click instead
+        }
+    });
+    
+
+
     $('#searchButton').on('click', function() {  
+        console.log("clicl")
         const input = $('#searchInput').val();
         if (input) {
             $("#inputError").hide();
