@@ -25,6 +25,9 @@ if (isset($_GET['query'])) {
                 $deathDate = $person['death']['date'];
                 $formattedDate = preg_replace('/(....)(..)(..)/', '$3/$2/$1', $deathDate);
 
+                $lastNameString = $person['name']['last'];
+                $firstNameString = $person['name']['first'];
+
                 $city = @$person['birth']['location']['city'];
                 $code = @$person['birth']['location']['code'];
                 $codePostal = @$person['birth']['location']['codePostal'];
@@ -54,7 +57,8 @@ if (isset($_GET['query'])) {
                 $es = @$person['scores']['es'];
      
 
-                
+                $lastNameString = is_array($lastNameString) ? implode(', ', $lastNameString) : $lastNameString;
+                $firstNameString = is_array($firstNameString) ? implode(', ', $firstNameString) : $firstNameString;
 
                 $city = is_array($city) ? implode(', ', $city) : $city;
                 $code = is_array($code) ? implode(', ', $code) : $code;
@@ -85,6 +89,14 @@ if (isset($_GET['query'])) {
                     <tr>
                         <td>ID</td>
                         <td>'.$person['id'].'</td>
+                    </tr>
+                    <tr>
+                        <td>First Name</td>
+                        <td>'.$firstNameString.'</td>
+                    </tr>
+                     <tr>
+                        <td>Last Name</td>
+                        <td>'.$lastNameString.'</td>
                     </tr>
                    <tr>
                         <td>Sex</td>
@@ -183,7 +195,7 @@ if (isset($_GET['query'])) {
                     
 
                     </tbody>
-                </table></div>';
+                </table><br/></div>';
             }
         } else {
             echo "<p>No results found.</p>";
